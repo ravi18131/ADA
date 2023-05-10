@@ -1,0 +1,100 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+typedef struct {
+
+    int weight;
+
+    int value;
+
+    double ratio;
+
+} Item;
+
+int compare(const void *a, const void *b) {
+
+    Item *itemA = (Item*) a;
+
+    Item *itemB = (Item*) b;
+
+    double ratioA = itemA->ratio;
+
+    double ratioB = itemB->ratio;
+
+    return ratioB > ratioA ? 1 : -1;
+
+}
+
+double greedy_knapsack(int W, Item items[], int n) {
+
+    qsort(items, n, sizeof(Item), compare);
+
+    int i;
+
+    double max_value = 0;
+
+    for (i = 0; i < n; i++) {
+
+        if (W == 0) {
+
+            return max_value;
+
+        }
+
+        int weight = items[i].weight;
+
+        int value = items[i].value;
+
+        if (W >= weight) {
+
+            W -= weight;
+
+            max_value += value;
+
+        } else {
+
+            max_value += (double) value * W / weight;
+
+            W = 0;
+
+        }
+
+    }
+
+    return max_value;
+
+}
+
+int main() {
+
+    Item items[] = {
+
+        {10, 60, 0},
+
+        {20, 100, 0},
+
+        {30, 120, 0}
+
+    };
+
+    int W = 50;
+
+    int n = sizeof(items) / sizeof(Item);
+
+    int i;
+
+    for (i = 0; i < n; i++) {
+
+        items[i].ratio = (double) items[i].value / items[i].weight;
+
+    }
+
+    double max_value = greedy_knapsack(W, items, n);
+
+    printf("Maximum value: %.2lf", max_value);
+
+    return 0;
+
+}
+
