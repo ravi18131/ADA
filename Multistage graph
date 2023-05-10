@@ -1,0 +1,70 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <limits.h>
+
+#define min(a, b) ((a) < (b) ? (a) : (b))
+
+#define MAX_VERTICES 1000
+
+int n, m;
+
+int graph[MAX_VERTICES][MAX_VERTICES];
+
+int dist[MAX_VERTICES];
+
+int multistage_graph() {
+
+    for (int i = n - 2; i >= 0; i--) {
+
+        dist[i] = INT_MAX;
+
+        for (int j = i + 1; j < n; j++) {
+
+            if (graph[i][j] != -1) {
+
+                dist[i] = min(dist[i], graph[i][j] + dist[j]);
+
+            }
+
+        }
+
+    }
+
+    return dist[0];
+
+}
+
+int main() {
+
+    scanf("%d%d", &n, &m);
+
+    for (int i = 0; i < n; i++) {
+
+        for (int j = 0; j < n; j++) {
+
+            graph[i][j] = -1;
+
+        }
+
+    }
+
+    for (int i = 0; i < m; i++) {
+
+        int u, v, w;
+
+        scanf("%d%d%d", &u, &v, &w);
+
+        graph[u][v] = w;
+
+    }
+
+    int ans = multistage_graph();
+
+    printf("Minimum distance: %d\n", ans);
+
+    return 0;
+
+}
+
