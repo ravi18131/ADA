@@ -1,0 +1,78 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+struct Job {
+
+    int deadline;
+
+    int profit;
+
+};
+
+int cmp(const void* a, const void* b) {
+
+    return ((struct Job*)b)->profit - ((struct Job*)a)->profit;
+
+}
+
+int job_sequence(struct Job jobs[], int n) {
+
+    qsort(jobs, n, sizeof(struct Job), cmp);
+
+    int max_deadline = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        max_deadline = MAX(max_deadline, jobs[i].deadline);
+
+    }
+
+    int slots[max_deadline];
+
+    for (int i = 0; i < max_deadline; i++) {
+
+        slots[i] = -1;
+
+    }
+
+    int profit = 0;
+
+    for (int i = 0; i < n; i++) {
+
+        for (int j = jobs[i].deadline - 1; j >= 0; j--) {
+
+            if (j < max_deadline && slots[j] == -1) {
+
+                slots[j] = i;
+
+                profit += jobs[i].profit;
+
+                break;
+
+            }
+
+        }
+
+    }
+
+    return profit;
+
+}
+
+int main() {
+
+    struct Job jobs[] = {{4, 70}, {1, 80}, {1, 30}, {1, 100}, {3, 50}, {1, 60}};
+
+    int n = sizeof(jobs) / sizeof(jobs[0]);
+
+    int max_profit = job_sequence(jobs, n);
+
+    printf("Maximum profit: %d", max_profit);
+
+    return 0;
+
+}
+
