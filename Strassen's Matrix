@@ -1,0 +1,100 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+void strassen(int **A, int **B, int **C, int n) {
+
+    if (n == 1) {
+
+        C[0][0] = A[0][0] * B[0][0];
+
+        return;
+
+    }
+
+    int **P = (int **) malloc(n/2 * sizeof(int *));
+
+    int **Q = (int **) malloc(n/2 * sizeof(int *));
+
+    int **R = (int **) malloc(n/2 * sizeof(int *));
+
+    int **S = (int **) malloc(n/2 * sizeof(int *));
+
+    int **T = (int **) malloc(n/2 * sizeof(int *));
+
+    int **U = (int **) malloc(n/2 * sizeof(int *));
+
+    int **V = (int **) malloc(n/2 * sizeof(int *));
+
+    for (int i = 0; i < n/2; i++) {
+
+        P[i] = (int *) malloc(n/2 * sizeof(int));
+
+        Q[i] = (int *) malloc(n/2 * sizeof(int));
+
+        R[i] = (int *) malloc(n/2 * sizeof(int));
+
+        S[i] = (int *) malloc(n/2 * sizeof(int));
+
+        T[i] = (int *) malloc(n/2 * sizeof(int));
+
+        U[i] = (int *) malloc(n/2 * sizeof(int));
+
+        V[i] = (int *) malloc(n/2 * sizeof(int));
+
+    }
+
+    int **A11 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **A12 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **A21 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **A22 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **B11 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **B12 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **B21 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **B22 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **C11 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **C12 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **C21 = (int **) malloc(n/2 * sizeof(int *));
+
+    int **C22 = (int **) malloc(n/2 * sizeof(int *));
+
+    for (int i = 0; i < n/2; i++) {
+
+        A11[i] = (int *) malloc(n/2 * sizeof(int));
+
+        A12[i] = (int *) malloc(n/2 * sizeof(int));
+
+        A21[i] = (int *) malloc(n/2 * sizeof(int));
+
+        A22[i] = (int *) malloc(n/2 * sizeof(int));
+
+        B11[i] = (int *) malloc(n/2 * sizeof(int));
+
+        B12[i] = (int *) malloc(n/2 * sizeof(int));
+
+        B21[i] = (int *) malloc(n/2 * sizeof(int));
+
+        B22[i] = (int *) malloc(n/2 * sizeof(int));
+
+        C11[i] = (int *) malloc(n/2 * sizeof(int));
+
+        C12[i] = (int *) malloc(n/2 * sizeof(int));
+
+        C21[i] = (int *) malloc(n/2 * sizeof(int));
+
+        C22[i] = (int *) malloc(n/2 * sizeof(int));
+
+    }
+
+    for (int i = 0; i < n
+
