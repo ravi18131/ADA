@@ -1,0 +1,84 @@
+#include <stdio.h>
+
+#include <stdlib.h>
+
+void optimal_merge_pattern(int arr[], int n) {
+
+    int i, j, k;
+
+    int table[n][n];
+
+    int root[n][n];
+
+    for (i = 0; i < n; i++) {
+
+        table[i][i] = 0;
+
+        root[i][i] = 0;
+
+    }
+
+    for (k = 1; k < n; k++) {
+
+        for (i = 0; i < n-k; i++) {
+
+            j = i+k;
+
+            int min = -1;
+
+            for (int p = i; p < j; p++) {
+
+                int val = table[i][p] + table[p+1][j] + arr[i]*arr[p+1]*arr[j+1];
+
+                if (min == -1 || val < min) {
+
+                    min = val;
+
+                    root[i][j] = p;
+
+                }
+
+            }
+
+            table[i][j] = min;
+
+        }
+
+    }
+
+    printf("Optimal Cost: %d\n", table[0][n-1]);
+
+    printf("Optimal Parenthesization: ");
+
+    i = 0;
+
+    j = n-1;
+
+    while (i != j) {
+
+        printf("(");
+
+        optimal_merge_pattern(arr+i, root[i][j]-i+2);
+
+        printf(")");
+
+        i = root[i][j]+1;
+
+    }
+
+    printf("A%d", i+1);
+
+}
+
+int main() {
+
+    int arr[] = {30, 35, 15, 5, 10, 20, 25};
+
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    optimal_merge_pattern(arr, n);
+
+    return 0;
+
+}
+
